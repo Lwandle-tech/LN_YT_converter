@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube MP3 Downloader</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin: 30px auto;
+            max-width: 500px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        img {
+            max-width: 300px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+
+        .download-link {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>YouTube MP3 Downloader 🎶</h1>
+
+    <form method="POST">
+        <input type="text" name="link" placeholder="Paste YouTube video or playlist URL here" required>
+        <br>
+        <button type="submit">Download</button>
+    </form>
+
+    {% if zip_filename %}
+        <div class="success">
+            <h2>Playlist Ready!</h2>
+            <div class="download-link">
+                <a href="{{ url_for('download_file', filename=zip_filename) }}">
+                    <button>Download Full Playlist (ZIP)</button>
+                </a>
+            </div>
+        </div>
+    {% elif title %}
+        <div class="success">
+            <h2>{{ title }}</h2>
+            <img src="{{ thumbnail }}" alt="Thumbnail">
+            <div class="download-link">
+                <a href="{{ url_for('download_file', filename=filename) }}">
+                    <button>Download MP3</button>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+</body>
+</html>

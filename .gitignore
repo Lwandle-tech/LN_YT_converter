@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.zip
+*.mp3
+downloads/
+env/
+venv/
+.DS_Store
